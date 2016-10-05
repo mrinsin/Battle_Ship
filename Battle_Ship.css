@@ -1,3 +1,7 @@
+h1, h4 {
+  text-align: center;
+}
+
 td {
   border-width: medium;
   border-color: black;
@@ -5,5 +9,6 @@ td {
 }
 
 table {
-  height: 70px
+  height: 80px;
+  width: 80px;
 }
