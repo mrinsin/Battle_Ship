@@ -2,13 +2,23 @@ h1, h4 {
   text-align: center;
 }
 
+
 td {
   border-width: medium;
   border-color: black;
   border-style: solid;
+  height: 10%;
+  width: 10%;
 }
 
 table {
-  height: 80px;
-  width: 80px;
+  height: 450px;
+  width: 450px;
+  text-align: center;
+  margin-left: 150px;
+}
+
+.box_img {
+  background-image: url("http://www.iconsdb.com/icons/preview/red/bomb-xxl.png");
+  background-size: contain;
 }
