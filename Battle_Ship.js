@@ -6,7 +6,17 @@ var torpsLeft = 25;
 console.log("You have " + torpsLeft + " torpedoes left.")
 
 //creating our board, which is an empty array holding ten empty arrays
-var board = [[], [], [], [], [], [], [], [], [], []];
+var board = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],];
 console.log(board);
 
 //creating a ship with a value of 1. This is a constant and therefore the value of ship wont change no matter where it is placed
@@ -23,14 +33,25 @@ $(document).ready(function() {
 
   $("td").on("click", function(){
 
-    //When I click this box, an image appears
-    $(this).addClass("box_img");
+
+    if (playGame($(this)) === "SHIP") {
+      $(this).addClass("ship_img");
+    }
+    if (playGame($(this)) === "PEDO" && torpsLeft > 0) {
+      $(this).addClass("box_img");
+    }
 
     //Updating the number of torps the user has left to use
     torpsLeft--;
 
+    if (torpsLeft > 0) {
     //alerting the user about how many torps they have left
     $("h4").text("You have " + torpsLeft + " torpedoes left!");
+    }
+    if (torpsLeft === 0) {
+      $("h4").text("You are out of torpedoes! Game over.");
+      $(this).off();
+    }
 
     //This box cannot be played again
     $(this).off();
@@ -93,4 +114,26 @@ function placeShips() {
   }
 }
 
-my name is timoddt9
+//When I click this box, the first move is played
+function playGame(box) {
+  var num = box.attr("id");
+  console.log("box variable: " + box);
+  var row = num.charAt(0);
+  console.log("row variable: " + row);
+  var column = num.charAt(1);
+  console.log("Column var : " + column);
+
+  if(board[row][column] == 1) {
+    return "SHIP";
+    // box.on("click", function(){
+    // box.text("ship");
+  // });
+};
+
+  if (board[row][column] == 0) {
+      // box.on("click", function(){
+      // box.text("torp");
+      return "PEDO";
+    // });
+  };
+};
