@@ -25,6 +25,8 @@ const SHIP = 1;
 //Counting how many times the user has hit a SHIP
 var shipsHit = 0;
 
+var boxId;
+
 //array that stores ship locations
 var shipsArray = [];
 
@@ -66,6 +68,17 @@ $(document).ready(function() {
       $("h4").text("You are out of torpedoes! Game over.");
       //turning off the click function since the game is now over
       $(this).off();
+      showShips();
+
+      // function showShips() {
+      //
+      //   for(idx = 0; idx < 5; idx++){
+      //     boxId = "" + shipsArray[idx];
+      //     $("td").attr("boxId").addClass("shipsBox");
+      //   }
+      // };
+      // showShips();
+
     }
 
     //This box cannot be played again
@@ -126,11 +139,11 @@ function placeShips() {
       ships++;
     }
 
-    // shipsArray.push("" + row + column);
+    shipsArray.push("" + randomRow + randomColumn);
   }
 }
 
-//When I click this box, the first move is played
+//This function takes an ID and turns that string into 2 integers(to use as indexes for our board)
 function playGame(box) {
   var num = box.attr("id");
   console.log("box variable: " + box);
@@ -139,6 +152,7 @@ function playGame(box) {
   var column = num.charAt(1);
   console.log("Column var : " + column);
 
+  //creating values to be used when placing a ship image or a bomb image
   if(board[row][column] == 1) {
     return "SHIP";
   };
@@ -146,4 +160,15 @@ function playGame(box) {
       return "PEDO";
   };
 
+};
+
+
+function showShips() {
+  for(row = 0; row < 10; row++){
+    for (col = 0; col < 10; col++) {
+    if (board[row][col] == SHIP) {
+      $("#"+row+col).addClass("shipsBox");
+      }
+    }
+  }
 };
