@@ -69,16 +69,6 @@ $(document).ready(function() {
       //turning off the click function since the game is now over
       $(this).off();
       showShips();
-
-      // function showShips() {
-      //
-      //   for(idx = 0; idx < 5; idx++){
-      //     boxId = "" + shipsArray[idx];
-      //     $("td").attr("boxId").addClass("shipsBox");
-      //   }
-      // };
-      // showShips();
-
     }
 
     //This box cannot be played again
