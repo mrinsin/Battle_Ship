@@ -17,10 +17,16 @@ var board = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],];
-console.log(board);
+      // console.log(board);
 
 //creating a ship with a value of 1. This is a constant and therefore the value of ship wont change no matter where it is placed
 const SHIP = 1;
+
+//Counting how many times the user has hit a SHIP
+var shipsHit = 0;
+
+//array that stores ship locations
+var shipsArray = [];
 
 //Start Game
 console.log("The Game starts");
@@ -33,10 +39,12 @@ $(document).ready(function() {
 
   $("td").on("click", function(){
 
-
+    //if there is a ship in that position, show ship image
     if (playGame($(this)) === "SHIP") {
       $(this).addClass("ship_img");
+      shipsHit++;
     }
+    //if there is no ship in that position, show torpedo image
     if (playGame($(this)) === "PEDO" && torpsLeft > 0) {
       $(this).addClass("box_img");
     }
@@ -44,20 +52,27 @@ $(document).ready(function() {
     //Updating the number of torps the user has left to use
     torpsLeft--;
 
-    if (torpsLeft > 0) {
-    //alerting the user about how many torps they have left
-    $("h4").text("You have " + torpsLeft + " torpedoes left!");
+    if (torpsLeft > 0 && shipsHit === 5) {
+      $("h4").text("You win!!");
+      $("td").off();
     }
-    if (torpsLeft === 0) {
+
+    if (torpsLeft > 0 && shipsHit < 5) {
+    //alerting the user about how many torps they have left
+      $("h4").text("You have " + torpsLeft + " torpedoes left!");
+    }
+    if (torpsLeft === 0 && shipsHit < 5) {
+      //alerting the user that they are out of moves
       $("h4").text("You are out of torpedoes! Game over.");
+      //turning off the click function since the game is now over
       $(this).off();
     }
 
     //This box cannot be played again
     $(this).off();
-  })
-});
 
+    });
+  })
 
 
 function print(board) {
@@ -106,11 +121,12 @@ function placeShips() {
     //check if the position is empty, if it is, add a ship
     if (board[randomRow][randomColumn] != SHIP) {
       board[randomRow][randomColumn] = SHIP;
+      //See where the ships are placed in the 2d array
+      console.log("Ship added at " + randomRow + randomColumn);
       ships++;
     }
 
-    //See where the ships are placed in the 2d array
-    print(board);
+    // shipsArray.push("" + row + column);
   }
 }
 
@@ -125,15 +141,9 @@ function playGame(box) {
 
   if(board[row][column] == 1) {
     return "SHIP";
-    // box.on("click", function(){
-    // box.text("ship");
-  // });
-};
-
-  if (board[row][column] == 0) {
-      // box.on("click", function(){
-      // box.text("torp");
-      return "PEDO";
-    // });
   };
+  if (board[row][column] == 0) {
+      return "PEDO";
+  };
+
 };
