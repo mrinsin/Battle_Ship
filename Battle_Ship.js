@@ -141,7 +141,7 @@ function placeShips() {
     randomColumn = Math.floor(Math.random()*9);
     shipsArray.push("" + randomRow + randomColumn);
     //check if the position is empty, if it is, add a ship
-    if (board[randomRow][randomColumn] != SHIP && (radar()===true)) {
+    if (board[randomRow][randomColumn] != SHIP && (checkForShips(randomRow, randomColumn)===true)) {
       board[randomRow][randomColumn] = SHIP;
       //See where the ships are placed in the 2d array
       console.log("Ship added at " + randomRow + randomColumn);
@@ -186,70 +186,106 @@ function showShips() {
 };
 
 
-function radar() {
-
-  //create placeholders for each row and column value
-  var rowDigit;
-  var colDigit;
-
-  //create empty arrays that will srtore potential row and col values per loop
-  var prv = [];
-  var pcv = [];
-
-  //to keep track of ships in our radar
+function checkForShips(row, column) {
   var rad = 0;
 
-  //if there is already at least one ship that has been placed
-  if (fleetArray.length >= 1) {
+  var prv = [row -1, row, row + 1];
+  var pcv = [column - 1, column, column + 1];
 
-    //loop through the array that holds all 5 ship positions
-    fleetArray.forEach(function(element){
+  prv = prv.filter(function(x){ return x > -1});
+  pcv = pcv.filter(function(x){ return x > -1});
 
-      //the first part of that element is the value of our current row
-      rowDigit = parseInt(element.charAt(0));
-      //the second part of that element is the value of our current column
-      colDigit = parseInt(element.charAt(1));
+  prv = prv.filter(function(x){ return x < 10});
+  pcv = pcv.filter(function(x){ return x < 10});
 
-
-      if ((rowDigit - 1) >= 0 && (rowDigit - 1)< 9) {
-        prv.push(rowDigit - 1);
+  for (r = 0; r < prv.length; r++) {
+    row = prv[r];
+    for (c = 0; c < pcv.length; c++) {
+      col = pcv[c];
+      console.log("\nChecking for ship at " + row + col);
+      if (board[row][col]=== 1) {
+        rad++;
+        console.log("Ship found, try again");
       }
-      if (rowDigit >= 0 && rowDigit < 9) {
-        prv.push(rowDigit + 0);
-      }
-      if ((rowDigit + 1) >= 0 && (rowDigit + 1) < 9) {
-        prv.push(rowDigit + 1);
-      }
-      if ((colDigit - 1) >= 0 && (colDigit - 1) < 9) {
-        pcv.push(colDigit - 1);
-      }
-      if (colDigit >= 0 && colDigit < 9) {
-        pcv.push(colDigit + 0);
-      }
-      if ((colDigit + 1) >= 0 && (colDigit + 1) < 9) {
-        pcv.push(colDigit + 1);
-      }
-
-      console.log(pcv);
-      console.log(prv);
-      //creating arrays with possible coordinates
-      prv.forEach(function(row) {
-        pcv.forEach(function(column) {
-          if (board[row][column] === 1){
-
-          rad++;
-          }
-        });
-        pcv = [];
-        prv= [];
-      });
-    });
+    }
   }
 
-  if (rad > 0) {
-    return false;
-  } else if (rad === 0) {
+  if (rad === 0) {
     return true;
+  } else { return false;
   }
-
 }
+
+
+
+
+
+
+
+// function radar() {
+//
+//   //create placeholders for each row and column value
+//   var rowDigit;
+//   var colDigit;
+//
+//   //create empty arrays that will srtore potential row and col values per loop
+//   var prv = [];
+//   var pcv = [];
+//
+//   //to keep track of ships in our radar
+//   var rad = 0;
+//
+//   //if there is already at least one ship that has been placed
+//   if (fleetArray.length >= 1) {
+//
+//     //loop through the array that holds all 5 ship positions
+//     fleetArray.forEach(function(element){
+//
+//       //the first part of that element is the value of our current row
+//       rowDigit = parseInt(element.charAt(0));
+//       //the second part of that element is the value of our current column
+//       colDigit = parseInt(element.charAt(1));
+//
+//
+//       if ((rowDigit - 1) >= 0 && (rowDigit - 1)< 9) {
+//         prv.push(rowDigit - 1);
+//       }
+//       if (rowDigit >= 0 && rowDigit < 9) {
+//         prv.push(rowDigit + 0);
+//       }
+//       if ((rowDigit + 1) >= 0 && (rowDigit + 1) < 9) {
+//         prv.push(rowDigit + 1);
+//       }
+//       if ((colDigit - 1) >= 0 && (colDigit - 1) < 9) {
+//         pcv.push(colDigit - 1);
+//       }
+//       if (colDigit >= 0 && colDigit < 9) {
+//         pcv.push(colDigit + 0);
+//       }
+//       if ((colDigit + 1) >= 0 && (colDigit + 1) < 9) {
+//         pcv.push(colDigit + 1);
+//       }
+//
+//       console.log(pcv);
+//       console.log(prv);
+//       //creating arrays with possible coordinates
+//       prv.forEach(function(row) {
+//         pcv.forEach(function(column) {
+//           if (board[row][column] === 1){
+//
+//           rad++;
+//           }
+//         });
+//         pcv = [];
+//         prv= [];
+//       });
+//     });
+//   }
+//
+//   if (rad > 0) {
+//     return false;
+//   } else if (rad === 0) {
+//     return true;
+//   }
+//
+// }
