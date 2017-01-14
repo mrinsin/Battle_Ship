@@ -1,5 +1,5 @@
 body {
-  background-image: url("https://67.media.tumblr.com/92a8a2dd3535c24c5ff5303fd528ed09/tumblr_njstj0XqhF1s03lrno1_500.gif");
+  background: #00456e;
 }
 
 h1, h4 {
@@ -11,9 +11,12 @@ h1, h4 {
       1px -1px 0 #000,
       -1px 1px 0 #000,
        1px 1px 0 #000;
-  color: #F1C40F;
+  color:  #de80cd;
 }
 
+h4 {
+  color: #e6711b;
+}
 
 /*hi*/
 
@@ -23,14 +26,14 @@ td {
   border-style: solid;
   height: 10%;
   width: 10%;
-  background-color: #FAD7A0;
+  background-color: #6d406c;
 }
 
 table {
   height: 450px;
   width: 450px;
   text-align: center;
-  margin-left: 150px;
+  margin-left: -30px;
 }
 
 .box_img {
